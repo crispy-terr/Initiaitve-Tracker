@@ -1,0 +1,14 @@
+[ENEMY]
+Name: Enemy Type
+Roll: 0
+maxHP: 0
+numEnemies: 0
+CR: 0.0
+AC: 0
+Str: 0
+Dex: 0
+Con: 0
+Int: 0
+Wis: 0
+Cha: 0
+Sprite: 0001

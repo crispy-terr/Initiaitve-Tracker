@@ -1,0 +1,16 @@
+[BOSS]
+Name: Red Dragon
+BossName: Red Dragon
+Roll: 25
+maxHP: 546
+numEnemies: 1
+CR: 24.0
+numLegendaryActions: 3
+generic: true
+AC: 22
+Str: 30
+Dex: 10
+Con: 29
+Int: 18
+Wis: 15
+Cha: 23
