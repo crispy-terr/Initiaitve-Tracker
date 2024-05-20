@@ -5,10 +5,11 @@ public class Boss extends Enemy {
     private int numLegAct;
     private boolean isGeneric; //Bosses tagged as generic will be referred to as if they're not unique; A Goblin (Generic) vs. Akra, Goblin King (Not Generic)
 
+    //Github test comment???
     public Boss()
     {
         super();
-        bossName = "Blank";
+        bossName = "Blank"; 
         numLegAct = 0;
         super.setSpriteFileName("0004.png");
     }
