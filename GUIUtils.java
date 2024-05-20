@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.io.File;
 import java.net.URI;
+import java.security.spec.ECFieldF2m;
 
 public class GUIUtils {
 
@@ -21,12 +22,12 @@ public class GUIUtils {
         throw new AssertionError();
     }
 
-    public static CreatureFrame createGameMenu() throws Exception{
+    public static InitiativeTrackerPanel createGameMenu() throws Exception{
 
         //Declare important variables
         ArrayList<Creature> creatures = new ArrayList<Creature>();
         CreatureList ctrList;
-        CreatureFrame frame;
+        InitiativeTrackerPanel frame;
 
         //Sort creature list
         CreatureUtils.createEncounter(creatures);
@@ -34,16 +35,14 @@ public class GUIUtils {
         ctrList = new CreatureList(creatures);
 
         //Set up Frame
-        frame = new CreatureFrame(ctrList);
-        frame.setTitle("Initiative Calculator");
+        frame = new InitiativeTrackerPanel(ctrList);
         frame.setSize(500, 500);
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
 
         return frame;
     }
 
-    public static CreatureFrame createGameMenu(Dimension dimension, String name) throws Exception{
+    public static InitiativeTrackerPanel createGameMenu(String name) throws Exception{
 
         //Parse graphics folder
         parseGraphics();
@@ -51,7 +50,7 @@ public class GUIUtils {
         //Declare important variables
         ArrayList<Creature> creatures = new ArrayList<Creature>();
         CreatureList ctrList;
-        CreatureFrame frame;
+        InitiativeTrackerPanel frame;
 
         //Sort creature list
         CreatureUtils.createEncounter(creatures);
@@ -59,16 +58,13 @@ public class GUIUtils {
         ctrList = new CreatureList(creatures);
 
         //Set up Frame
-        frame = new CreatureFrame(ctrList);
-        frame.setTitle(name);
-        frame.setSize(dimension);
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new InitiativeTrackerPanel(ctrList);
+        frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
 
         return frame;
     }
 
-    public static JFrame createStartMenu(Dimension dimension, String name){
+    public static JFrame createStartMenuOld(Dimension dimension, String name){
 
         //frame that everything is placed on
         JFrame frame = new JFrame(name);
@@ -92,7 +88,7 @@ public class GUIUtils {
                     System.out.println("Something went wrong. Error 0001.");
                 }
 
-                CreatureFrame cFrame = new CreatureFrame(new CreatureList(creatures));
+                InitiativeTrackerPanel cFrame = new InitiativeTrackerPanel(new CreatureList(creatures));
                 cFrame.setSize(dimension);
                 frame.setVisible(false);
                 cFrame.setVisible(true);
@@ -115,6 +111,46 @@ public class GUIUtils {
 
 
         return frame;
+    }
+
+    public static JTabbedPane createTabbedPane() throws Exception{
+
+        GUIUtils.parseGraphics();
+        
+        JTabbedPane jtp = new JTabbedPane();
+        jtp.setBorder(new EmptyBorder(10,0,10,0));
+
+        //Create Encounter page
+        JPanel page1 = new JPanel();
+        page1.add(new JLabel("Create Encounter"));
+
+        //Dice Roller page
+        JPanel page2 = new JPanel();
+        page2.setLayout(new BoxLayout(page2, BoxLayout.PAGE_AXIS));
+
+        GridLayout gl = new GridLayout(4, 2);
+        gl.setVgap(10);
+        gl.setHgap(30);
+
+        DiceRollerPanel drp = new DiceRollerPanel(gl);
+
+        JPanel rollPanel = drp.getRollPanel();
+
+        page2.setBorder(new EmptyBorder(10, 50, 10, 50));
+
+        page2.add(drp);
+        page2.add(rollPanel);
+        page2.add(drp.getBonusPanel());
+        page2.add(drp.getErrorPanel());
+
+        //Initiative Tracker page
+        JPanel page3 = GUIUtils.createGameMenu();
+
+        jtp.add("Create Encounter", page1);
+        jtp.add("Dice Roller", page2);
+        jtp.add("Initiative Tracker", page3);
+
+        return jtp;
     }
 
     public static void parseGraphics(){

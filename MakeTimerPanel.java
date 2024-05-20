@@ -36,7 +36,7 @@ public class MakeTimerPanel extends JPanel implements ActionListener{
          //If there is text in jtfName and jtfLength
          if(jtfName.getText().length()>0 && jtfLength.getText().length()>0 && Integer.parseInt(jtfLength.getText())>0){
             //Make a timer with parameters specified in jtfName and jtfLength
-            nextTimer = CreatureFrame.makeTimer(numCreatures);
+            nextTimer = InitiativeTrackerPanel.makeTimer(numCreatures);
             currentCreature.getTimers().add(nextTimer);
             currentCreature.createShowTimerPanel();
 
@@ -55,7 +55,7 @@ public class MakeTimerPanel extends JPanel implements ActionListener{
             frame.setLocationRelativeTo(null);
             frame.add(new JLabel("Timer: \"" + nextTimer.getName() + "\" has been created"), BorderLayout.CENTER);
             frame.add(new JLabel("for " + currentCreature.getName() + "!"));
-            frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/D20_icon.png")).getImage());
+            frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
          }
       }catch(java.lang.NumberFormatException e){
          errorLabel.setText("Enter a positive integer in the length field.");

@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class CreatureFrame extends JFrame{
+public class InitiativeTrackerPanel extends JPanel{
 
     private CreatureList creatureList;
     private static MakeTimerPanel mtp;
@@ -13,7 +13,7 @@ public class CreatureFrame extends JFrame{
     private boolean pointer = false; //Keeps track of if the start button has been pressed
     private int numCreatures;
 
-    public CreatureFrame(CreatureList creatureList){
+    public InitiativeTrackerPanel(CreatureList creatureList){
 
         ArrayList<JComponent> compList = new ArrayList<JComponent>();
         numCreatures = creatureList.getCreatures().size();
@@ -120,12 +120,6 @@ public class CreatureFrame extends JFrame{
         infoPanel.add(jbShowTimer);
         infoPanel.add(Box.createRigidArea(new Dimension(0,5)));
 
-        //Make next button default
-        getRootPane().setDefaultButton(next);
-
-        //Set image
-        setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/D20_icon.png")).getImage());
-
         //Add infoPanel to CreatureFrame
         this.add(infoPanel);
         this.add(mtp);
@@ -153,7 +147,7 @@ public class CreatureFrame extends JFrame{
     }
 
     public static void setMtp(MakeTimerPanel mtp) {
-        CreatureFrame.mtp = mtp;
+        InitiativeTrackerPanel.mtp = mtp;
     }
 
     public JPanel getShowTimerPanel() {

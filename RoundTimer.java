@@ -72,7 +72,7 @@ public class RoundTimer{
                 frame.setLayout(new FlowLayout(FlowLayout.CENTER));
                 frame.setLocationRelativeTo(null);
                 frame.add(new JLabel("Timer: " + timer.getName() + " has expired!"), BorderLayout.CENTER);
-                frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/D20_icon.png")).getImage());
+                frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
                 
             }
         }
