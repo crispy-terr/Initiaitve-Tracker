@@ -31,7 +31,10 @@ public class DiceRollerPanel extends JPanel implements ActionListener {
     private JLabel errorLabel = new JLabel("Please enter an integer value.");
     private JPanel errorPanel = new JPanel();
 
-    // Add mode and Single mode
+    // Add mode
+    private JCheckBox jcbAddMode = new JCheckBox("Add Mode");
+    private boolean addMode = false;
+
 
     public DiceRollerPanel(LayoutManager layout) {
         // Set up panel (construct super, add buttons)
@@ -76,9 +79,16 @@ public class DiceRollerPanel extends JPanel implements ActionListener {
         bonusTextField.setActionCommand("jtfbonus");
         errorLabel.setVisible(false);
 
+        // Add mode checkbox
+        jcbAddMode.addActionListener(this);
+        jcbAddMode.setActionCommand("addmode");
+        jcbAddMode.setVisible(true);
+
         // Set up error panel
         errorLabel.setVisible(false);
         errorPanel.add(errorLabel);
+
+        bonusPanel.add(jcbAddMode);
     }
 
     @Override
@@ -120,6 +130,9 @@ public class DiceRollerPanel extends JPanel implements ActionListener {
         } else if (e.getActionCommand().equals("jtfbonus")) {
             evaluateBonus();
             calculateTotal();
+        } else if (e.getActionCommand().equals("addmode")){
+            addMode = !addMode;
+            System.out.println(addMode);
         }
     }
 
