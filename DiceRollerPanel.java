@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.*;
 
 public class DiceRollerPanel extends JPanel implements ActionListener {
 
@@ -19,7 +18,6 @@ public class DiceRollerPanel extends JPanel implements ActionListener {
     private JPanel rollPanel = new JPanel();
     private JLabel rollLabel = new JLabel("Nothing has been rolled yet.");
     private int roll = 0;
-    private ArrayList<Integer> rollList = new ArrayList<Integer>();
 
     // Handling bonus
     private JPanel bonusPanel = new JPanel();
@@ -28,7 +26,6 @@ public class DiceRollerPanel extends JPanel implements ActionListener {
     private int bonus = 0;
     private String plusMinus = " + ";
     private int total;
-    private int oldTotal = 0;
 
     //Error Panel
     private JLabel errorLabel = new JLabel("Please enter an integer value.");
@@ -81,46 +78,52 @@ public class DiceRollerPanel extends JPanel implements ActionListener {
         // Set up error panel
         errorLabel.setVisible(false);
         errorPanel.add(errorLabel);
-
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         evaluateBonus();
+
         if (e.getActionCommand().equals("D20")) {
             roll = (int) ((Math.random() * 20) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("D10")) {
             roll = (int) ((Math.random() * 10) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("D12")) {
             roll = (int) ((Math.random() * 12) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("D8")) {
             roll = (int) ((Math.random() * 8) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("D4")) {
             roll = (int) ((Math.random() * 4) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("D2")) {
             roll = (int) ((Math.random() * 2) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("Percentile")) {
             roll = (int) ((Math.random() * 100) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("D6")) {
             roll = (int) ((Math.random() * 6) + 1);
             calculateTotal();
+            rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
         } else if (e.getActionCommand().equals("jtfbonus")) {
             evaluateBonus();
             calculateTotal();
         }
-
-        rollLabel.setText(roll + plusMinus + Math.abs(bonus) + " = " + total);
     }
 
     public void calculateTotal(){
-        total = bonus + roll;
+       total = bonus + roll;
     }
 
     public void evaluateBonus(){
