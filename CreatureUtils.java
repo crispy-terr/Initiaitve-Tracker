@@ -71,7 +71,6 @@ public class CreatureUtils {
         for (Creature creature : ctrArr) {
             creatures.add(creature);
         }
-        // ctrList.setCreatures(creatures);
     }
 
     public static Creature[] createEncounter() throws Exception {
@@ -300,5 +299,42 @@ public class CreatureUtils {
             System.out.println("Player does not have a file.");
         }
 
+    }
+
+    public static void writeRoll(Creature creature, int roll) {
+        if (creature.getHasFile()) {
+
+            File creatureFile = creature.getFile();
+            ArrayList<String> fileList = new ArrayList<>();
+
+            // Convert file to string array
+            try (Scanner sc = new Scanner(creatureFile)) {
+                while (sc.hasNextLine()) {
+                    fileList.add(sc.nextLine());
+                }
+            } catch (Exception e) {
+                System.err.println("Something went wrong while reading the file");
+                e.printStackTrace();
+                return;
+            }
+
+            // Replace old roll with new roll
+            for (int i = 0; i < fileList.size(); i++) {
+                if (fileList.get(i).contains("Roll:")) {
+                    fileList.set(i, "Roll: " + roll);
+                }
+            }
+
+            // Write to the file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(creatureFile))) {
+                for (String line : fileList) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.err.println("Something went wrong while writing to the file");
+                e.printStackTrace();
+            }
+        }
     }
 }
