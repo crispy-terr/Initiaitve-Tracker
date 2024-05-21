@@ -88,7 +88,6 @@ public class GUIUtils {
         JPanel rollPanel = drp.getRollPanel();
 
         page2.setBorder(new EmptyBorder(10, 50, 10, 50));
-
         page2.add(drp);
         page2.add(rollPanel);
         page2.add(drp.getBonusPanel());

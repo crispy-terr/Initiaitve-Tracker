@@ -15,6 +15,7 @@ public class MakeTimerPanel extends JPanel implements ActionListener{
    private int numCreatures;
 
    public MakeTimerPanel(Creature currentCreature, int numCreatures){
+      
       errorLabel.setVisible(false);
       this.numCreatures = numCreatures;
       this.currentCreature = currentCreature;
@@ -25,16 +26,20 @@ public class MakeTimerPanel extends JPanel implements ActionListener{
 
       //Add objects to separate panels
       JPanel jlNamePanel = new JPanel();
+      jlNamePanel.setMaximumSize(new Dimension(100,30));
       jlNamePanel.add(jlName);
 
       JPanel jtfNamePanel = new JPanel();
+      jtfNamePanel.setMaximumSize(new Dimension(150,30));
       jtfNamePanel.add(jtfName);
 
       JPanel jlLengthPanel = new JPanel();
+      jlLengthPanel.setMaximumSize(new Dimension(150,30));
       jlLengthPanel.add(jlLength);
 
       JPanel jtfLengthPanel = new JPanel();
-      jlLengthPanel.add(jtfLength);
+      jtfLengthPanel.setMaximumSize(new Dimension(150,30));
+      jtfLengthPanel.add(jtfLength);
 
       //Add objects to the panel
       this.add(jlNamePanel);

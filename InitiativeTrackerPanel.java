@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -15,6 +17,9 @@ public class InitiativeTrackerPanel extends JPanel{
 
     public InitiativeTrackerPanel(CreatureList creatureList){
 
+        FlowLayout fl = new FlowLayout(FlowLayout.LEADING);
+
+        setLayout(fl);
         ArrayList<JComponent> compList = new ArrayList<JComponent>();
         numCreatures = creatureList.getCreatures().size();
 
@@ -29,9 +34,8 @@ public class InitiativeTrackerPanel extends JPanel{
         intiativeDisplay.setVisible(false);
 
         mtp = new MakeTimerPanel(creatureList.getCurrentCreature(), creatureList.getCreatures().size());
-        mtp.setPreferredSize(new Dimension(100,200));;
-        mtp.setSize(new Dimension(100,200));
-        //mtp.setLayout(new GridLayout(4,1));
+        mtp.setLayout(new BoxLayout(mtp, BoxLayout.Y_AXIS));
+        mtp.setAlignmentX(Component.TOP_ALIGNMENT);
         mtp.setVisible(false);
 
         //Start JLabel
@@ -40,8 +44,9 @@ public class InitiativeTrackerPanel extends JPanel{
 
         //Set up the information panel. Contains creature name, round count, buttons.
         infoPanel = new JPanel();
-        infoPanel.setSize(150,100);
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(10,10,0,0));
         infoPanel.add(jlCreature);
 
         //Declare MakeTimer button
@@ -54,6 +59,7 @@ public class InitiativeTrackerPanel extends JPanel{
         jbShowTimer.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
                 showTimerPanel = creatureList.getCurrentCreature().getShowTimerPanel();
+                showTimerPanel.setMaximumSize(new Dimension(100,50));
                 showTimerPanel.setVisible(true);
                 add(showTimerPanel);
                 revalidate();
@@ -83,6 +89,7 @@ public class InitiativeTrackerPanel extends JPanel{
 
                     creatureList.incrementTimers();
                     intiativeDisplay.setText("Turn: " + (creatureList.getTurnCount()) + ", Round: " + (creatureList.getRoundCount()+1));
+                    infoPanel.setVisible(true);
 
                     //Sprite Panel things
                     spritePanel.removeAll();
@@ -114,18 +121,20 @@ public class InitiativeTrackerPanel extends JPanel{
 
         //Add things to infoPanel
         infoPanel.add(intiativeDisplay);
+        infoPanel.add(Box.createRigidArea(new Dimension(0,5)));
         infoPanel.add(next);
         infoPanel.add(Box.createRigidArea(new Dimension(0,5)));
         infoPanel.add(jbMakeTimer);
         infoPanel.add(Box.createRigidArea(new Dimension(0,5)));
         infoPanel.add(jbShowTimer);
         infoPanel.add(Box.createRigidArea(new Dimension(0,5)));
+        infoPanel.add(mtp);
 
         //Add infoPanel to CreatureFrame
-        this.add(infoPanel);
-        this.add(mtp);
-        this.add(showTimerPanel);
-        this.add(spritePanel);
+        add(infoPanel);
+        add(showTimerPanel);
+        add(spritePanel);
+        
     }
 
     public static RoundTimer makeTimer(int numCreatures){
