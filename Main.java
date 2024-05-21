@@ -1,7 +1,6 @@
 import javax.swing.*;
 
 public class Main {
-    static InitiativeTrackerPanel panel;
 
     public static void main(String[] args) throws Exception {
         JTabbedPane jtp = GUIUtils.createTabbedPane();
@@ -15,6 +14,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(jtp);
-        frame.setVisible(true);
+        frame.setVisible(true); 
+
     }
 }

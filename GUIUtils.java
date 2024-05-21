@@ -50,7 +50,7 @@ public class GUIUtils {
         //Declare important variables
         ArrayList<Creature> creatures = new ArrayList<Creature>();
         CreatureList ctrList;
-        InitiativeTrackerPanel frame;
+        InitiativeTrackerPanel panel;
 
         //Sort creature list
         CreatureUtils.createEncounter(creatures);
@@ -58,59 +58,10 @@ public class GUIUtils {
         ctrList = new CreatureList(creatures);
 
         //Set up Frame
-        frame = new InitiativeTrackerPanel(ctrList);
-        frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
+        panel = new InitiativeTrackerPanel(ctrList);
+        panel.setLayout(new GridLayout(1,4));
 
-        return frame;
-    }
-
-    public static JFrame createStartMenuOld(Dimension dimension, String name){
-
-        //frame that everything is placed on
-        JFrame frame = new JFrame(name);
-        frame.setSize(dimension);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //Panel that everything is placed on
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
-        contentPanel.setBorder(new EmptyBorder(new Insets(50, 50, 50, 50)));
-
-        //Start Encounter button
-        JButton jbStartEncounter = new JButton("Start Encounter");
-        jbStartEncounter.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae){
-                ArrayList<Creature> creatures = new ArrayList<Creature>();
-
-                try{
-                    CreatureUtils.createEncounter(creatures);
-                }catch (Exception e){
-                    System.out.println("Something went wrong. Error 0001.");
-                }
-
-                InitiativeTrackerPanel cFrame = new InitiativeTrackerPanel(new CreatureList(creatures));
-                cFrame.setSize(dimension);
-                frame.setVisible(false);
-                cFrame.setVisible(true);
-            }
-        });
-        contentPanel.add(jbStartEncounter);
-        contentPanel.add(Box.createRigidArea(new Dimension(5,0)));
-
-        //Create Encounter button
-        JButton jbCreateEncounter = new JButton("Create Encounter");
-        contentPanel.add(jbCreateEncounter);
-        contentPanel.add(Box.createRigidArea(new Dimension(5,0)));
-
-        //Character settings button
-        
-
-        frame.add(contentPanel);
-
-        frame.setVisible(true);
-
-
-        return frame;
+        return panel;
     }
 
     public static JTabbedPane createTabbedPane() throws Exception{

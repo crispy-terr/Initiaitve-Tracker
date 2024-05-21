@@ -1,6 +1,6 @@
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.awt.*;
 
 public class MakeTimerPanel extends JPanel implements ActionListener{
 
@@ -23,10 +23,24 @@ public class MakeTimerPanel extends JPanel implements ActionListener{
       jtfName.addActionListener(this);
       jtfLength.addActionListener(this);
 
-      this.add(jlName);
-      this.add(jtfName);
-      this.add(jlLength);
-      this.add(jtfLength);
+      //Add objects to separate panels
+      JPanel jlNamePanel = new JPanel();
+      jlNamePanel.add(jlName);
+
+      JPanel jtfNamePanel = new JPanel();
+      jtfNamePanel.add(jtfName);
+
+      JPanel jlLengthPanel = new JPanel();
+      jlLengthPanel.add(jlLength);
+
+      JPanel jtfLengthPanel = new JPanel();
+      jlLengthPanel.add(jtfLength);
+
+      //Add objects to the panel
+      this.add(jlNamePanel);
+      this.add(jtfNamePanel);
+      this.add(jlLengthPanel);
+      this.add(jtfLengthPanel);
       this.add(errorLabel);
    }
    

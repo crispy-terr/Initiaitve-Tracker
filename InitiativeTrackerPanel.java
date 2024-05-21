@@ -31,6 +31,7 @@ public class InitiativeTrackerPanel extends JPanel{
         mtp = new MakeTimerPanel(creatureList.getCurrentCreature(), creatureList.getCreatures().size());
         mtp.setPreferredSize(new Dimension(100,200));;
         mtp.setSize(new Dimension(100,200));
+        //mtp.setLayout(new GridLayout(4,1));
         mtp.setVisible(false);
 
         //Start JLabel
