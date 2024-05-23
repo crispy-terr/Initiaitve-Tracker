@@ -73,7 +73,7 @@ public class GUIUtils {
 
         //Create Encounter page
         JPanel page1 = new JPanel();
-        page1.add(new JLabel("Create Encounter"));
+        page1.add(new CreateEncounterPanel());
 
         //Dice Roller page
         JPanel page2 = new JPanel();

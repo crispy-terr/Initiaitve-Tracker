@@ -2,13 +2,17 @@ import java.io.*;
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
+import java.nio.*;
+import java.nio.file.*;
 
 public class CreatureUtils {
 
-    private static final File NEXT_ENCOUNTER_FOLDER;
+    static final File NEXT_ENCOUNTER_FOLDER;
+    static final File CREATURES_FOLDER;
 
     static{
         NEXT_ENCOUNTER_FOLDER = new File(CreatureUtils.class.getResource("/NextEncounter").getPath());
+        CREATURES_FOLDER = new File(CreatureUtils.class.getResource("/Creatures").getPath());
     }
     
 
@@ -253,6 +257,30 @@ public class CreatureUtils {
         }
     }
 
+    public static Creature parseCTRFile(Creature creature) throws Exception {
+        File ctrFile = creature.getFile();
+        Scanner sc = new Scanner(ctrFile);
+        String typeDecider = sc.nextLine();
+
+        if(typeDecider.equals("[PLAYER]")){
+            creature = new Player(ctrFile);
+            parsePlayerFile((Player)creature);
+        }
+        else if(typeDecider.equals("[ENEMY]")){
+            creature = new Enemy(ctrFile);
+            parseEnemyFile((Enemy)creature);
+        }
+        else if(typeDecider.equals("[BOSS]")){
+            creature = new Boss(ctrFile);
+            parseBossFile((Boss)creature);
+        }
+        else{
+            System.err.println("Incorrect file format.");
+        }
+        sc.close();
+        return creature;
+    }
+
     public static void parsePlayerFile(Player player) throws Exception {
         if (player.getHasFile()) {
             File file = player.getFile();
@@ -334,6 +362,23 @@ public class CreatureUtils {
             } catch (IOException e) {
                 System.err.println("Something went wrong while writing to the file");
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public static void moveBackToCreaturesFolder(){
+        File dir = new File(NEXT_ENCOUNTER_FOLDER.getPath());
+        File[] directoryListing = dir.listFiles();
+
+        for (File file : directoryListing) {
+            Path sourcePath = Paths.get(NEXT_ENCOUNTER_FOLDER.getPath() + "\\" + file.getName());
+            Path targetPath = Paths.get(CREATURES_FOLDER.getPath());
+
+            try {
+                Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File moved successfully");
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
             }
         }
     }

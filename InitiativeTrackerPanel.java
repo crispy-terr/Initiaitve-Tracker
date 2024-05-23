@@ -71,6 +71,10 @@ public class InitiativeTrackerPanel extends JPanel{
         next.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
 
+                // if(!pointer){
+                //     CreatureUtils.moveBackToCreaturesFolder();
+                // }
+
                //true if it isn't the first press of the next button
                pointer = true;
 
