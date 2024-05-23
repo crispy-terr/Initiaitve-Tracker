@@ -12,9 +12,15 @@ public class InitiativePanel extends JPanel {
     
     //Testing some stuff with scroll panel
     public static void main(String[] args){
+        JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+        p.add(new JLabel("ggg"));
+        JPanel[] panelArr = new JPanel[]{p,p,p,p,p,p};
+        JList paneList = new JList<>(panelArr);
+
         String[] testList = new String[]{"a", "b", "c", "d", "e", "f", "g"};
         JList list = new JList<>(testList);
-        JScrollPane jsp = new JScrollPane(list);
+        JScrollPane jsp = new JScrollPane(paneList);
         jsp.setMaximumSize(new Dimension(10, 50));
         
 
