@@ -75,6 +75,10 @@ public class GUIUtils {
         JPanel page1 = new JPanel();
         page1.add(new CreateEncounterPanel());
 
+        //Roll Initiative Page
+        JPanel page4 = new JPanel();
+        page4.add(new RollInitiativePanel());
+
         //Dice Roller page
         JPanel page2 = new JPanel();
         page2.setLayout(new BoxLayout(page2, BoxLayout.PAGE_AXIS));
@@ -97,6 +101,7 @@ public class GUIUtils {
         JPanel page3 = GUIUtils.createGameMenu();
 
         jtp.add("Create Encounter", page1);
+        jtp.add("Roll Initiative", page4);
         jtp.add("Dice Roller", page2);
         jtp.add("Initiative Tracker", page3);
 

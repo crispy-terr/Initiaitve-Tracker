@@ -19,8 +19,7 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
     private JScrollPane jspCreatures;
 
     public CreateEncounterPanel() throws Exception {
-        // Set layout for instance and mainList
-        setLayout(new GridLayout(1, 2));
+        // Set layout for mainList
         mainList.setLayout(new BoxLayout(mainList, BoxLayout.Y_AXIS));
 
         // add action listener to button
@@ -36,6 +35,10 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
         mainList.setBorder(new MatteBorder(0, 0, 1, 0, Color.GRAY));
 
         jspCreatures = new JScrollPane(mainList);
+        jspCreatures.setPreferredSize(new Dimension(300, 400));
+
+        // Change the scroll speed
+        jspCreatures.getVerticalScrollBar().setUnitIncrement(10);
 
         add(jspCreatures);
         add(jbCreateEncounter);
@@ -43,7 +46,6 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<File> creaturesInEncounter = new ArrayList<File>();
 
         for (int i = 0; i < ChooseCreaturePanel.dirList.length; i++) {
             if (mainList.getComponent(i) instanceof ChooseCreaturePanel) {
@@ -52,11 +54,10 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
                     File creatureFile = ((ChooseCreaturePanel) (mainList.getComponent(i))).getCreature().getFile();
 
                     // Move the file to the NextEncounter folder
-
                     sourcePath = creatureFile.toPath();
                     Path targetPath = Paths.get(nextEncounterFolderPath.toString(), creatureFile.getName());
                     try {
-                        Files.move(sourcePath, targetPath);
+                        Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
                         System.out.println("File moved successfully");
                     } catch (IOException ioe) {
                         ioe.printStackTrace();

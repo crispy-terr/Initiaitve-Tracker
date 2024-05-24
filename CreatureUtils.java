@@ -11,8 +11,8 @@ public class CreatureUtils {
     static final File CREATURES_FOLDER;
 
     static{
-        NEXT_ENCOUNTER_FOLDER = new File(CreatureUtils.class.getResource("/NextEncounter").getPath());
-        CREATURES_FOLDER = new File(CreatureUtils.class.getResource("/Creatures").getPath());
+        NEXT_ENCOUNTER_FOLDER = new File("NextEncounter");
+        CREATURES_FOLDER = new File("Creatures");
     }
     
 
@@ -366,7 +366,7 @@ public class CreatureUtils {
         }
     }
 
-    public static void moveBackToCreaturesFolder(){
+    public static void moveToCreaturesFolder(){
         File dir = new File(NEXT_ENCOUNTER_FOLDER.getPath());
         File[] directoryListing = dir.listFiles();
 
@@ -380,6 +380,17 @@ public class CreatureUtils {
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
+        }
+    }
+
+    public static void moveToNextEncounterFolder(File file){
+        Path sourcePath = Paths.get(file.getPath());
+        Path targetPath = Paths.get(NEXT_ENCOUNTER_FOLDER.getPath(), file.getName());
+
+        try{
+            Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch(IOException ioe){
+            System.err.println(ioe.getMessage());
         }
     }
 }

@@ -32,8 +32,9 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     public ChooseCreaturePanel() throws Exception {
 
-        //Set the layout and size of the panel
+        //Set the layout and size of the panel and add glue to the right edge of the panel
         setLayout(new GridLayout(1,2));
+        setPreferredSize(new Dimension(200, 50));
         setMaximumSize(new Dimension(1000,100));
         setMinimumSize(new Dimension(1000, 100));
 
@@ -46,7 +47,7 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
         jcbInEncounter.addActionListener(this);
 
         //Add the creature's name and a checkbox to the panel
-        add(new JLabel(creature.getName()));
+        add(new JLabel(" " + creature.getName()));
         add(jcbInEncounter);
         setBorder(new MatteBorder(0,0,1,0, Color.GRAY));
 
