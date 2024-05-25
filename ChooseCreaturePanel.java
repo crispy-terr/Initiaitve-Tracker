@@ -13,6 +13,7 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
     static File[] dirList = dir.listFiles();
     private static ArrayList<File> creatureFiles;
     private static int indexPointer = 0;
+    private static int numInEncounter = 0;
 
     // Gui components
     private JCheckBox jcbInEncounter = new JCheckBox();
@@ -61,9 +62,11 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(jcbInEncounter.isSelected()){
             inEncounter = true;
+            numInEncounter++;
         }
         else{
             inEncounter = false;
+            numInEncounter--;
         }
     }
 
@@ -73,6 +76,10 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     public Creature getCreature(){
         return creature;
+    }
+
+    public static int getNumInEncounter(){
+        return numInEncounter;
     }
 
 }

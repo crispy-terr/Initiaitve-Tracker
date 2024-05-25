@@ -18,8 +18,9 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
     private JButton jbCreateEncounter = new JButton("Create Encounter");
     private JScrollPane jspCreatures;
     private GamePanel gp;
+    private JLabel errorLabel = new JLabel("Please select more creatures for the battle.");
 
-    //Logic
+    // Logic
     private boolean actionPerformed;
 
     public CreateEncounterPanel(GamePanel gp) throws Exception {
@@ -53,37 +54,43 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        for (int i = 0; i < ChooseCreaturePanel.dirList.length; i++) {
-            if (mainList.getComponent(i) instanceof ChooseCreaturePanel) {
-                if (((ChooseCreaturePanel) (mainList.getComponent(i))).isInEncounter()) {
+        // int numInEncounter = 0;
+        if (ChooseCreaturePanel.getNumInEncounter() > 1) {
+            for (int i = 0; i < ChooseCreaturePanel.dirList.length; i++) {
+                if (mainList.getComponent(i) instanceof ChooseCreaturePanel) {
+                    if (((ChooseCreaturePanel) (mainList.getComponent(i))).isInEncounter()) {
 
-                    File creatureFile = ((ChooseCreaturePanel) (mainList.getComponent(i))).getCreature().getFile();
+                        File creatureFile = ((ChooseCreaturePanel) (mainList.getComponent(i))).getCreature().getFile();
 
-                    // Move the file to the NextEncounter folder
-                    sourcePath = creatureFile.toPath();
-                    Path targetPath = Paths.get(nextEncounterFolderPath.toString(), creatureFile.getName());
-                    try {
-                        Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
+                        // Move the file to the NextEncounter folder
+                        sourcePath = creatureFile.toPath();
+                        Path targetPath = Paths.get(nextEncounterFolderPath.toString(), creatureFile.getName());
+                        try {
+                            Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException ioe) {
+                            ioe.printStackTrace();
+                        }
+
                     }
-
                 }
             }
-        }
+            setVisible(false);
 
-        setVisible(false);
+            // Add a RollInitiativePanel once the creatures in the battle have been decided
+            try {
+                gp.add("Roll Initiative", new RollInitiativePanel(gp));
+                gp.remove(0);
+                if (errorLabel.isVisible()) {
+                    errorLabel.setVisible(false);
+                }
+            } catch (Exception ee) {
+                System.err.println("Something went wrong");
+            }
 
-        //Add a RollInitiativePanel once the creatures in the battle have been decided
-        try{
-            gp.add("Roll Initiative", new RollInitiativePanel(gp));
-            gp.remove(0);
-        } catch (Exception ee){
-            System.err.println("Something went wrong");
         }
     }
 
-    public boolean isActionPerformed(){
+    public boolean isActionPerformed() {
         return actionPerformed;
     }
 
