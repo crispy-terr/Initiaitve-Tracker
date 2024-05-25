@@ -17,8 +17,14 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
     private JPanel mainList = new JPanel();
     private JButton jbCreateEncounter = new JButton("Create Encounter");
     private JScrollPane jspCreatures;
+    private GamePanel gp;
 
-    public CreateEncounterPanel() throws Exception {
+    //Logic
+    private boolean actionPerformed;
+
+    public CreateEncounterPanel(GamePanel gp) throws Exception {
+        this.gp = gp;
+
         // Set layout for mainList
         mainList.setLayout(new BoxLayout(mainList, BoxLayout.Y_AXIS));
 
@@ -58,7 +64,6 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
                     Path targetPath = Paths.get(nextEncounterFolderPath.toString(), creatureFile.getName());
                     try {
                         Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                        System.out.println("File moved successfully");
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
@@ -68,17 +73,18 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
         }
 
         setVisible(false);
+
+        //Add a RollInitiativePanel once the creatures in the battle have been decided
+        try{
+            gp.add("Roll Initiative", new RollInitiativePanel(gp));
+            gp.remove(0);
+        } catch (Exception ee){
+            System.err.println("Something went wrong");
+        }
     }
 
-    public static void main(String[] args) throws Exception {
-        CreateEncounterPanel cep = new CreateEncounterPanel();
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-        frame.setLayout(new GridLayout(1, 2));
-        frame.add(cep);
-
-        frame.setVisible(true);
+    public boolean isActionPerformed(){
+        return actionPerformed;
     }
 
 }

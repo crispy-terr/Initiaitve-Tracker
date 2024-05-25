@@ -73,11 +73,11 @@ public class GUIUtils {
 
         //Create Encounter page
         JPanel page1 = new JPanel();
-        page1.add(new CreateEncounterPanel());
+        //page1.add(new CreateEncounterPanel());
 
         //Roll Initiative Page
         JPanel page4 = new JPanel();
-        page4.add(new RollInitiativePanel());
+        //page4.add(new RollInitiativePanel());
 
         //Dice Roller page
         JPanel page2 = new JPanel();
@@ -106,6 +106,26 @@ public class GUIUtils {
         jtp.add("Initiative Tracker", page3);
 
         return jtp;
+    }
+
+    public static JPanel createDiceRollPanel(){
+        JPanel page = new JPanel();
+        page.setLayout(new BoxLayout(page, BoxLayout.PAGE_AXIS));
+        page.setBorder(new EmptyBorder(10, 50, 10, 50));
+
+        GridLayout gl = new GridLayout(4, 2);
+        gl.setVgap(10);
+        gl.setHgap(30);
+
+        DiceRollerPanel drp = new DiceRollerPanel(gl);
+
+        page.add(drp);
+        page.add(drp.getRollPanel());
+        page.add(drp.getBonusPanel());
+        page.add(drp.getErrorPanel());
+
+        
+        return page;
     }
 
     public static void parseGraphics(){

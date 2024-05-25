@@ -1,10 +1,22 @@
 import javax.swing.*;
+import java.io.IOException;
 
 public class Main {
-
     public static void main(String[] args) throws Exception {
-        JTabbedPane jtp = GUIUtils.createTabbedPane();
-        jtp.setVisible(true);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                moveFilesOnShutdown();
+            } catch (IOException e) {
+                System.err.println("Failed to move files on shutdown: " + e.getMessage());
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }));
+
+        GUIUtils.parseGraphics();
+        GamePanel gp = new GamePanel();
 
         JFrame frame = new JFrame("Initiative Tracker");
         frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
@@ -13,8 +25,12 @@ public class Main {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(jtp);
-        frame.setVisible(true); 
+        frame.add(gp);
+        frame.setVisible(true);
 
+    }
+
+    private static void moveFilesOnShutdown() throws Exception {
+        CreatureUtils.moveToCreaturesFolder();
     }
 }

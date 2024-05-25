@@ -10,11 +10,10 @@ public class CreatureUtils {
     static final File NEXT_ENCOUNTER_FOLDER;
     static final File CREATURES_FOLDER;
 
-    static{
+    static {
         NEXT_ENCOUNTER_FOLDER = new File("NextEncounter");
         CREATURES_FOLDER = new File("Creatures");
     }
-    
 
     private CreatureUtils() {
         throw new AssertionError();
@@ -71,6 +70,7 @@ public class CreatureUtils {
             } else {
                 System.out.println("Error: Not a compatible file type; Failed to create a creature.");
             }
+            sc.close();
         }
         for (Creature creature : ctrArr) {
             creatures.add(creature);
@@ -105,6 +105,7 @@ public class CreatureUtils {
             } else {
                 System.out.println("ERROR: Not a compatible file type; Failed to create a creature.");
             }
+            sc.close();
         }
         return ctrArr;
     }
@@ -128,6 +129,7 @@ public class CreatureUtils {
                 frame.add(p);
                 frame.revalidate();
             }
+            sc.close();
 
             if (creatures.get(i).getTimers().size() > 0) {
                 for (RoundTimer t : creatures.get(i).getTimers()) {
@@ -262,19 +264,16 @@ public class CreatureUtils {
         Scanner sc = new Scanner(ctrFile);
         String typeDecider = sc.nextLine();
 
-        if(typeDecider.equals("[PLAYER]")){
+        if (typeDecider.equals("[PLAYER]")) {
             creature = new Player(ctrFile);
-            parsePlayerFile((Player)creature);
-        }
-        else if(typeDecider.equals("[ENEMY]")){
+            parsePlayerFile((Player) creature);
+        } else if (typeDecider.equals("[ENEMY]")) {
             creature = new Enemy(ctrFile);
-            parseEnemyFile((Enemy)creature);
-        }
-        else if(typeDecider.equals("[BOSS]")){
+            parseEnemyFile((Enemy) creature);
+        } else if (typeDecider.equals("[BOSS]")) {
             creature = new Boss(ctrFile);
-            parseBossFile((Boss)creature);
-        }
-        else{
+            parseBossFile((Boss) creature);
+        } else {
             System.err.println("Incorrect file format.");
         }
         sc.close();
@@ -366,30 +365,30 @@ public class CreatureUtils {
         }
     }
 
-    public static void moveToCreaturesFolder(){
+    public static void moveToCreaturesFolder() {
         File dir = new File(NEXT_ENCOUNTER_FOLDER.getPath());
         File[] directoryListing = dir.listFiles();
 
         for (File file : directoryListing) {
-            Path sourcePath = Paths.get(NEXT_ENCOUNTER_FOLDER.getPath() + "\\" + file.getName());
-            Path targetPath = Paths.get(CREATURES_FOLDER.getPath());
+            Path sourcePath = Paths.get(NEXT_ENCOUNTER_FOLDER.getPath(), file.getName());
+            Path targetPath = Paths.get(CREATURES_FOLDER.getPath(), file.getName());
 
             try {
-                Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("File moved successfully");
+                Files.move(sourcePath, targetPath);
+
             } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
         }
     }
 
-    public static void moveToNextEncounterFolder(File file){
+    public static void moveToNextEncounterFolder(File file) {
         Path sourcePath = Paths.get(file.getPath());
         Path targetPath = Paths.get(NEXT_ENCOUNTER_FOLDER.getPath(), file.getName());
 
-        try{
+        try {
             Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-        } catch(IOException ioe){
+        } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
         }
     }

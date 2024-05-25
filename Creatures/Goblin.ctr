@@ -1,6 +1,6 @@
 [ENEMY]
 Name: Goblin
-Roll: 8
+Roll: 1
 maxHP: 7
 numEnemies: 1
 CR: 0.25

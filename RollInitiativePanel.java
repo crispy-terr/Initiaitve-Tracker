@@ -11,8 +11,10 @@ public class RollInitiativePanel extends JPanel implements ActionListener{
     private JPanel buttonPanel = new JPanel();
     private JButton jbSetInitiative = new JButton("Set Initiative");
     private JButton jbRollInitiativeForAll = new JButton("Roll for all");
+    private GamePanel gp;
 
-    public RollInitiativePanel() throws Exception{
+    public RollInitiativePanel(GamePanel gp) throws Exception{
+        this.gp = gp;
 
         //Set layout for main panel and button banel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -44,16 +46,6 @@ public class RollInitiativePanel extends JPanel implements ActionListener{
 
     }
 
-    public static void main(String[] args) throws Exception{
-        RollInitiativePanel rip = new RollInitiativePanel();
-        JFrame frame = new JFrame();
-        frame.setSize(500,500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(rip);
-        frame.setVisible(true);
-    }
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Set Initiative")){
@@ -75,7 +67,15 @@ public class RollInitiativePanel extends JPanel implements ActionListener{
             if(numWithError == 0){
                 setVisible(false);
             }
-            
+
+            //Once initiative has been rolled, add a dice roller and game panel
+            try{
+                gp.add("Initiative Tracker", GUIUtils.createGameMenu());
+                gp.add("Dice Roller", GUIUtils.createDiceRollPanel());
+                gp.remove(0);
+            } catch (Exception ee){
+                ee.printStackTrace();
+            }
 
         } else if (e.getActionCommand().equals("Roll for all")){
             for(Component n : mainPanel.getComponents()){
