@@ -9,32 +9,30 @@ import java.security.spec.ECFieldF2m;
 
 public class GUIUtils {
 
-
-    private static ArrayList<ImageIcon> graphicsList; 
+    private static ArrayList<ImageIcon> graphicsList;
     private static final File GRAPHICS_DIRECTORY = new File(GUIUtils.class.getResource("/Graphics").getPath());
 
-    static{
+    static {
         graphicsList = new ArrayList<ImageIcon>();
     }
 
-
-    private GUIUtils(){
+    private GUIUtils() {
         throw new AssertionError();
     }
 
-    public static InitiativeTrackerPanel createGameMenu() throws Exception{
+    public static InitiativeTrackerPanel createGameMenu() throws Exception {
 
-        //Declare important variables
+        // Declare important variables
         ArrayList<Creature> creatures = new ArrayList<Creature>();
         CreatureList ctrList;
         InitiativeTrackerPanel frame;
 
-        //Sort creature list
+        // Sort creature list
         CreatureUtils.createEncounter(creatures);
         CreatureUtils.sort(creatures);
         ctrList = new CreatureList(creatures);
 
-        //Set up Frame
+        // Set up Frame
         frame = new InitiativeTrackerPanel(ctrList);
         frame.setSize(500, 500);
         frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
@@ -42,44 +40,44 @@ public class GUIUtils {
         return frame;
     }
 
-    public static InitiativeTrackerPanel createGameMenu(String name) throws Exception{
+    public static InitiativeTrackerPanel createGameMenu(String name) throws Exception {
 
-        //Parse graphics folder
+        // Parse graphics folder
         parseGraphics();
 
-        //Declare important variables
+        // Declare important variables
         ArrayList<Creature> creatures = new ArrayList<Creature>();
         CreatureList ctrList;
         InitiativeTrackerPanel panel;
 
-        //Sort creature list
+        // Sort creature list
         CreatureUtils.createEncounter(creatures);
         CreatureUtils.sort(creatures);
         ctrList = new CreatureList(creatures);
 
-        //Set up Frame
+        // Set up Frame
         panel = new InitiativeTrackerPanel(ctrList);
-        panel.setLayout(new GridLayout(1,4));
+        panel.setLayout(new GridLayout(1, 4));
 
         return panel;
     }
 
-    public static JTabbedPane createTabbedPane() throws Exception{
+    public static JTabbedPane createTabbedPane() throws Exception {
 
         GUIUtils.parseGraphics();
-        
+
         JTabbedPane jtp = new JTabbedPane();
-        jtp.setBorder(new EmptyBorder(10,0,10,0));
+        jtp.setBorder(new EmptyBorder(10, 0, 10, 0));
 
-        //Create Encounter page
+        // Create Encounter page
         JPanel page1 = new JPanel();
-        //page1.add(new CreateEncounterPanel());
+        // page1.add(new CreateEncounterPanel());
 
-        //Roll Initiative Page
+        // Roll Initiative Page
         JPanel page4 = new JPanel();
-        //page4.add(new RollInitiativePanel());
+        // page4.add(new RollInitiativePanel());
 
-        //Dice Roller page
+        // Dice Roller page
         JPanel page2 = new JPanel();
         page2.setLayout(new BoxLayout(page2, BoxLayout.PAGE_AXIS));
 
@@ -97,7 +95,7 @@ public class GUIUtils {
         page2.add(drp.getBonusPanel());
         page2.add(drp.getErrorPanel());
 
-        //Initiative Tracker page
+        // Initiative Tracker page
         JPanel page3 = GUIUtils.createGameMenu();
 
         jtp.add("Create Encounter", page1);
@@ -108,7 +106,7 @@ public class GUIUtils {
         return jtp;
     }
 
-    public static JPanel createDiceRollPanel(){
+    public static JPanel createDiceRollPanel() {
         JPanel page = new JPanel();
         page.setLayout(new BoxLayout(page, BoxLayout.PAGE_AXIS));
         page.setBorder(new EmptyBorder(10, 50, 10, 50));
@@ -124,30 +122,38 @@ public class GUIUtils {
         page.add(drp.getBonusPanel());
         page.add(drp.getErrorPanel());
 
-        
         return page;
     }
 
-    public static void parseGraphics(){
-        try{
+    public static void parseGraphics() {
+        try {
             URI uri = GUIUtils.class.getResource("/Graphics").toURI();
             File dir = new File(uri);
-            for(File f : dir.listFiles()){
+            for (File f : dir.listFiles()) {
                 graphicsList.add(new ImageIcon(f.getPath()));
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static ArrayList<ImageIcon> getGraphicsList(){
+    public static JFrame makeErrorMessage(String errorString, String errorTitle){
+        JFrame frame = new JFrame(errorTitle);
+        frame.setSize(300,100);
+        JLabel errorLabel = new JLabel(errorString);
+        frame.add(errorLabel);
+        frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        return frame;
+    }
+
+    public static ArrayList<ImageIcon> getGraphicsList() {
         return graphicsList;
     }
 
-    public static String getGraphicsDirectory(){
+    public static String getGraphicsDirectory() {
         return GRAPHICS_DIRECTORY.getPath();
     }
-
-
 
 }

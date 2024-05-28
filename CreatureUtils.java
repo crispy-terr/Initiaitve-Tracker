@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import java.nio.*;
 import java.nio.file.*;
@@ -9,10 +12,16 @@ public class CreatureUtils {
 
     static final File NEXT_ENCOUNTER_FOLDER;
     static final File CREATURES_FOLDER;
+    private static final int PLAYER;
+    private static final int ENEMY;
+    private static final int BOSS;
 
     static {
         NEXT_ENCOUNTER_FOLDER = new File("NextEncounter");
         CREATURES_FOLDER = new File("Creatures");
+        PLAYER = 0;
+        ENEMY = 1;
+        BOSS = 2;
     }
 
     private CreatureUtils() {
@@ -303,7 +312,7 @@ public class CreatureUtils {
             }
 
             int[] newStats = new int[6];
-            for (int i = 1; i < xList.size(); i++) {
+            for (int i = 1; i < xList.size()-1; i++) {
                 String nextLine = xList.get(i).substring(xList.get(i).indexOf(" ") + 1);
                 if (i == 1) {
                     player.setName(nextLine);
@@ -390,6 +399,96 @@ public class CreatureUtils {
             Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
+        }
+    }
+
+    public static void makeCTRFile(ArrayList<String> statsList, JPanel errorPanel, JLabel errorLabel){
+        String fileName = statsList.get(0).trim();
+
+        //Removes spaces if the character name contains spaces
+        if(fileName.contains(" ")){
+            String[] fileNameArr = fileName.split(" ");
+            fileName = "";
+            for(String n : fileNameArr){
+                fileName += n;
+            }
+        }
+        fileName += ".ctr";
+
+        Path newFilePath = Paths.get(CREATURES_FOLDER.getPath(), fileName);
+
+        // Create the file
+        try{
+            Files.createFile(newFilePath);
+        } catch (IOException ioe){
+            JFrame frame = GUIUtils.makeErrorMessage("The file " + fileName + " Already Exists. Delete?", "File Already Exists");
+            JButton delete = new JButton("Delete File");
+            delete.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae){
+                    try{
+                        Files.delete(newFilePath);
+                        delete.setEnabled(false);
+                    } catch (IOException ioe){
+                        ioe.printStackTrace();
+                    }
+                }
+            });
+            frame.setLayout(new GridLayout(2,1));
+            frame.add(delete);
+        }
+
+        writeCTRFile(new File(newFilePath.toString()), statsList, PLAYER);
+    }
+
+    public static void writeCTRFile(File file, ArrayList<String> statsList, int type){
+        String filePath = file.getPath();
+        ArrayList<String> finList = new ArrayList<String>();
+
+        //Deciding what type of ctr the file should be
+        if(type == PLAYER){
+            finList.add(0, "[PLAYER]");
+            finList.add(1, "Name: " + statsList.get(0));
+            finList.add(2, "PlayerName: " + statsList.get(statsList.size()-1));
+            finList.add(3, "Roll: 1");
+            finList.add(4, "maxHP: " + statsList.get(1));
+            finList.add(5, "AC: " + statsList.get(2));
+            for(int i = 0; i<6; i++){
+                switch(i){
+                    case 0:
+                        finList.add(6+i, "Str: " + statsList.get(3+i));
+                        break;
+                    case 1:
+                        finList.add(6+i, "Dex: " + statsList.get(3+i));
+                        break;
+                    case 2:
+                        finList.add(6+i, "Con: " + statsList.get(3+i));
+                        break;
+                    case 3:
+                        finList.add(6+i, "Int: " + statsList.get(3+i));
+                        break;
+                    case 4:
+                        finList.add(6+i, "Wis: " + statsList.get(3+i));
+                        break;
+                    case 5:
+                        finList.add(6+i, "Cha: " + statsList.get(3+i));
+                        break;
+                }
+            }
+            finList.add("Sprite: 0000");
+        } else if(type == ENEMY){
+            finList.add(0, "[ENEMY]");
+        } else if(type == BOSS){
+            finList.add(0, "[BOSS]");
+        }
+
+        //Write the list to the file
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+            for(String n : finList){
+                writer.write(n);
+                writer.newLine();
+            }
+        } catch (IOException ioe){
+            System.err.println("Something went wrong");
         }
     }
 }

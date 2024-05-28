@@ -44,14 +44,4 @@ public class GamePanel extends JTabbedPane{
     public void setInitiativeTrackerPanel(JPanel initiativeTrackerPanel) {
         this.initiativeTrackerPanel = initiativeTrackerPanel;
     }
-    
-    public static void main(String[] args) throws Exception{
-        GUIUtils.parseGraphics();
-
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,500);
-        frame.add(new GamePanel());
-        frame.setVisible(true);
-    }
 }
