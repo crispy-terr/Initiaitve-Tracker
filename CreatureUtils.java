@@ -491,19 +491,20 @@ public class CreatureUtils {
         } else if(type == BOSS){
             finList.add(0, "[BOSS]");
             finList.add(1, "Name: " + statsList.get(0));
-            finList.add(2, "Roll: 1");
-            finList.add(3, "maxHP: " + statsList.get(1));
-            finList.add(4, "numEnemies: 1");
-            finList.add(5, "CR: 0.0");
-            finList.add(6, "numLegendaryActions: 3");
-            finList.add(7, "generic: true");
-            finList.add(8, "AC: " + statsList.get(2));
-            finList.add(9, "Str: " + statsList.get(3));
-            finList.add(10, "Dex: " + statsList.get(4));
-            finList.add(11, "Con: " + statsList.get(5));
-            finList.add(12, "Int: " + statsList.get(6));
-            finList.add(13, "Wis: " + statsList.get(7));
-            finList.add(14, "Cha: " + statsList.get(8));
+            finList.add(2, "Boss Name: "+ statsList.get(0));
+            finList.add(3, "Roll: 1");
+            finList.add(4, "maxHP: " + statsList.get(1));
+            finList.add(5, "numEnemies: 1");
+            finList.add(6, "CR: 0.0");
+            finList.add(7, "numLegendaryActions: 3");
+            finList.add(8, "generic: true");
+            finList.add(9, "AC: " + statsList.get(2));
+            finList.add(10, "Str: " + statsList.get(3));
+            finList.add(11, "Dex: " + statsList.get(4));
+            finList.add(12, "Con: " + statsList.get(5));
+            finList.add(13, "Int: " + statsList.get(6));
+            finList.add(14, "Wis: " + statsList.get(7));
+            finList.add(15, "Cha: " + statsList.get(8));
         }
 
         //Write the list to the file

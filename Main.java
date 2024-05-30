@@ -1,8 +1,15 @@
 import javax.swing.*;
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        
+        String[] dirs = new String[3];
+        dirs[0] = CreatureUtils.CREATURES_FOLDER.getPath();
+        dirs[1] = CreatureUtils.NEXT_ENCOUNTER_FOLDER.getPath();
+        dirs[2] = GUIUtils.getGraphicsDirectory();
+        checkAndCreateDirectories(dirs);
+
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
@@ -16,7 +23,7 @@ public class Main {
         }));
 
         GUIUtils.parseGraphics();
-        GamePanel gp = new GamePanel();
+        StartPanel sp = new StartPanel();
 
         JFrame frame = new JFrame("Initiative Tracker");
         frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
@@ -25,12 +32,27 @@ public class Main {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(gp);
+        frame.add(sp);
         frame.setVisible(true);
 
     }
 
     private static void moveFilesOnShutdown() throws Exception {
         CreatureUtils.moveToCreaturesFolder();
+    }
+
+    private static void checkAndCreateDirectories(String[] dirs){
+        for(String dirPath : dirs){
+            File dir = new File(dirPath);
+            if(!dir.exists()){
+                if(dir.mkdirs()){
+                    System.out.println("Directory created: " + dirPath);
+                } else {
+                    System.err.println("Failed to create directory: " + dirPath);
+                }
+            } else {
+                System.out.println("Directory already exists: " + dirPath);
+            }
+        }
     }
 }

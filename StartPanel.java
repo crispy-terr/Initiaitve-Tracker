@@ -41,30 +41,25 @@ public class StartPanel extends JPanel implements ActionListener {
         
     }
 
-    public static void main(String[] args){
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-
-        StartPanel ctrmp = new StartPanel();
-        frame.add(ctrmp);
-
-        frame.setVisible(true);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equalsIgnoreCase("jbStart")){
+        if(e.getActionCommand().equalsIgnoreCase("Start")){
             setAllInvisible();
-            revalidate();
+            try{
+                add(new GamePanel());
+            } catch (Exception ee){
+                System.err.println("An error occurred");
+                ee.printStackTrace();
+            }
 
-        } else if (e.getActionCommand().equalsIgnoreCase("jbCreateFiles")){
+        } else if (e.getActionCommand().equalsIgnoreCase("Create Files")){
             setAllInvisible();
+            add(new CTRMakerPanel(this));
         }
     }
 
     public void setAllInvisible(){
-        for (Component c : getComponents()) {
+        for(Component c : getComponents()){
             c.setVisible(false);
         }
     }

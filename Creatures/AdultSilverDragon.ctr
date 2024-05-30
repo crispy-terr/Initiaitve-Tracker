@@ -1,5 +1,6 @@
 [BOSS]
 Name: Adult Silver Dragon
+BossName: Adult Silver Dragon
 Roll: 1
 maxHP: 243
 numEnemies: 1

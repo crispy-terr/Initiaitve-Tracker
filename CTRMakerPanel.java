@@ -10,6 +10,7 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
     private ButtonGroup typeButtonGroup = new ButtonGroup();
     private JPanel radioButtonPanel = new JPanel();
     private JPanel mainPanel = new JPanel();
+    private JPanel buttonPanel = new JPanel();
 
     // Universal stats
     private StatsDisplay characterName = new StatsDisplay("Character Name");
@@ -131,15 +132,102 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
         add(errorPanel);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
+    public CTRMakerPanel(JPanel previousPanel) {
+        // Set layout of the CTRMakerPanel
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        CTRMakerPanel ctrmp = new CTRMakerPanel();
-        frame.add(ctrmp);
+        // Set up typeButtonGroup
+        typeButtonGroup.add(jrbPlayer);
+        typeButtonGroup.add(jrbEnemy);
+        typeButtonGroup.add(jrbBoss);
 
-        frame.setVisible(true);
+        // Give buttons action listener
+        jrbPlayer.addActionListener(this);
+        jrbEnemy.addActionListener(this);
+        jrbBoss.addActionListener(this);
+
+        // Set up the radioButtonPanel
+        radioButtonPanel.setMaximumSize(new Dimension(300, 50));
+        radioButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        radioButtonPanel.add(jrbPlayer);
+        radioButtonPanel.add(jrbEnemy);
+        radioButtonPanel.add(jrbBoss);
+        jrbPlayer.setSelected(true);
+
+        // Set up statsPanel
+        statsPanel.setLayout(new GridLayout(5, 2));
+        statsPanel.add(characterName);
+        statsPanel.add(maxHP);
+        statsPanel.add(armorClass);
+        statsPanel.add(strength);
+        statsPanel.add(dexterity);
+        statsPanel.add(constitution);
+        statsPanel.add(intelligence);
+        statsPanel.add(wisdom);
+        statsPanel.add(charisma);
+        statsPanel.add(playerName);
+        statsPanel.setMaximumSize(new Dimension(500,300));
+        mainPanel.add(statsPanel);
+
+        // Add create creature button and give it action listener
+        jbCreateCreature.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae){
+                //Add all text fields to a list and check if they're filled in
+                ArrayList<String> statsList = new ArrayList<String>();
+                for(Component c : statsPanel.getComponents()){
+                    if(c instanceof StatsDisplay){
+                        StatsDisplay sd = (StatsDisplay)c;
+                        sd.checkInputForValidity();
+                        boolean validInput = sd.isValid();
+                        if(sd.getStatInput().getText().length() > 0 && validInput)
+                            statsList.add(sd.getStatInput().getText());
+                    }
+                }
+
+                int lengthTarget = 0;
+                if(jrbBoss.isSelected() || jrbEnemy.isSelected()){
+                    if(playerName.getStatInput().getText().length() > 0){
+                        statsList.remove(statsList.size()-1);
+                    }
+                    lengthTarget = 9;
+                } else {
+                    lengthTarget = 10;
+                }
+
+                if(lengthTarget == statsList.size()){
+                    if(jrbPlayer.isSelected()){
+                        CreatureUtils.makeCTRFile(statsList, CreatureUtils.PLAYER, errorPanel, errorLabel);
+                        errorPanel.setVisible(false);
+                    }
+                    else if(jrbEnemy.isSelected()){
+                        CreatureUtils.makeCTRFile(statsList, CreatureUtils.ENEMY, errorPanel, errorLabel);
+                        errorPanel.setVisible(false);
+                    }
+                    else{
+                        CreatureUtils.makeCTRFile(statsList, CreatureUtils.BOSS, errorPanel, errorLabel);
+                        errorPanel.setVisible(false);
+                    }
+
+                } else {
+                    errorLabel.setText("Please fill out all fields with correct values.");
+                    errorPanel.setVisible(true);
+                }
+            }
+        });
+        buttonPanel.add(jbCreateCreature);
+        buttonPanel.add(new BackButton(previousPanel, this));
+
+        // Set up errorPanel
+        errorLabel.setText("Creature could not be created.");
+        errorLabel.setForeground(Color.RED);
+        errorPanel.add(errorLabel);
+        errorPanel.setVisible(false);
+
+        // Add everything to this
+        add(radioButtonPanel);
+        add(mainPanel);
+        add(buttonPanel);
+        add(errorPanel);
     }
 
     @Override
