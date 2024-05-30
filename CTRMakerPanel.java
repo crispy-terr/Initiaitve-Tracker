@@ -13,14 +13,14 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
 
     // Universal stats
     private StatsDisplay characterName = new StatsDisplay("Character Name");
-    private StatsDisplay strength = new StatsDisplay("Strength");
-    private StatsDisplay dexterity = new StatsDisplay("Dexterity");
-    private StatsDisplay constitution = new StatsDisplay("Constitution");
-    private StatsDisplay intelligence = new StatsDisplay("Intelligence");
-    private StatsDisplay wisdom = new StatsDisplay("Wisdom");
-    private StatsDisplay charisma = new StatsDisplay("Charisma");
-    private StatsDisplay maxHP = new StatsDisplay("Max HP");
-    private StatsDisplay armorClass = new StatsDisplay("Armor Class");
+    private StatsDisplay strength = new StatsDisplay("Strength", true);
+    private StatsDisplay dexterity = new StatsDisplay("Dexterity", true);
+    private StatsDisplay constitution = new StatsDisplay("Constitution", true);
+    private StatsDisplay intelligence = new StatsDisplay("Intelligence", true);
+    private StatsDisplay wisdom = new StatsDisplay("Wisdom", true);
+    private StatsDisplay charisma = new StatsDisplay("Charisma", true);
+    private StatsDisplay maxHP = new StatsDisplay("Max HP", true);
+    private StatsDisplay armorClass = new StatsDisplay("Armor Class", true);
     private JPanel statsPanel = new JPanel();
 
     // Player specific stats
@@ -72,46 +72,47 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
         // Add create creature button and give it action listener
         jbCreateCreature.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae){
-
                 //Add all text fields to a list and check if they're filled in
-                int filledInPointer = 0;
                 ArrayList<String> statsList = new ArrayList<String>();
                 for(Component c : statsPanel.getComponents()){
                     if(c instanceof StatsDisplay){
                         StatsDisplay sd = (StatsDisplay)c;
-                        statsList.add(sd.getStatInput().getText());
-                        if(!sd.getStatInput().getText().equals("")){
-                            filledInPointer++;
-                        }
+                        sd.checkInputForValidity();
+                        boolean validInput = sd.isValid();
+                        if(sd.getStatInput().getText().length() > 0 && validInput)
+                            statsList.add(sd.getStatInput().getText());
                     }
                 }
-                System.out.println(statsList);
-                int minFilledInFields = statsList.size();
 
-                //if boss or enemy is selected, subtract 1 from the amount of filled in fields needed
+                int lengthTarget = 0;
                 if(jrbBoss.isSelected() || jrbEnemy.isSelected()){
-                    minFilledInFields--;
+                    if(playerName.getStatInput().getText().length() > 0){
+                        statsList.remove(statsList.size()-1);
+                    }
+                    
+                    lengthTarget = 9;
+                } else {
+                    lengthTarget = 10;
                 }
+                    System.out.println(lengthTarget);
+                    System.out.println(statsList);
 
-                if(filledInPointer == minFilledInFields){
+                if(lengthTarget == statsList.size()){
                     if(jrbPlayer.isSelected()){
-                        System.out.println("Player created");
-                        CreatureUtils.makeCTRFile(statsList, errorPanel, errorLabel);
+                        CreatureUtils.makeCTRFile(statsList, CreatureUtils.PLAYER, errorPanel, errorLabel);
                         errorPanel.setVisible(false);
                     }
                     else if(jrbEnemy.isSelected()){
-                        System.out.println("Enemy Created");
-                        CreatureUtils.makeCTRFile(statsList, errorPanel, errorLabel);
+                        CreatureUtils.makeCTRFile(statsList, CreatureUtils.ENEMY, errorPanel, errorLabel);
                         errorPanel.setVisible(false);
                     }
                     else{
-                        System.out.println("Boss Created");
-                        CreatureUtils.makeCTRFile(statsList, errorPanel, errorLabel);
+                        CreatureUtils.makeCTRFile(statsList, CreatureUtils.BOSS, errorPanel, errorLabel);
                         errorPanel.setVisible(false);
                     }
 
                 } else {
-                    errorLabel.setText("Please fill out all fields.");
+                    errorLabel.setText("Please fill out all fields with correct values.");
                     errorPanel.setVisible(true);
                 }
             }

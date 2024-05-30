@@ -1,0 +1,13 @@
+[ENEMY]
+Name: Hobgoblin Captain
+Roll: 12
+maxHP: 39
+numEnemies: 1
+CR: 0.0
+AC: 17
+Str: 15
+Dex: 14
+Con: 14
+Int: 12
+Wis: 10
+Cha: 13

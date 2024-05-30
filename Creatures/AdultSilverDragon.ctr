@@ -1,0 +1,15 @@
+[BOSS]
+Name: Adult Silver Dragon
+Roll: 1
+maxHP: 243
+numEnemies: 1
+CR: 0.0
+numLegendaryActions: 3
+generic: true
+AC: 19
+Str: 27
+Dex: 10
+Con: 25
+Int: 16
+Wis: 13
+Cha: 21

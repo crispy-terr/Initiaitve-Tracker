@@ -12,9 +12,9 @@ public class CreatureUtils {
 
     static final File NEXT_ENCOUNTER_FOLDER;
     static final File CREATURES_FOLDER;
-    private static final int PLAYER;
-    private static final int ENEMY;
-    private static final int BOSS;
+    static final int PLAYER;
+    static final int ENEMY;
+    static final int BOSS;
 
     static {
         NEXT_ENCOUNTER_FOLDER = new File("NextEncounter");
@@ -50,7 +50,6 @@ public class CreatureUtils {
 
     // Goes through all player files in directory and adds them to a CreatureList
     public static void createEncounter(ArrayList<Creature> creatures) throws Exception {
-        // ArrayList<Creature> creatures = new ArrayList<Creature>();
         File dir = new File(NEXT_ENCOUNTER_FOLDER.getPath());
         File[] directoryListing = dir.listFiles();
 
@@ -402,7 +401,7 @@ public class CreatureUtils {
         }
     }
 
-    public static void makeCTRFile(ArrayList<String> statsList, JPanel errorPanel, JLabel errorLabel){
+    public static void makeCTRFile(ArrayList<String> statsList, int type, JPanel errorPanel, JLabel errorLabel){
         String fileName = statsList.get(0).trim();
 
         //Removes spaces if the character name contains spaces
@@ -437,11 +436,10 @@ public class CreatureUtils {
             frame.add(delete);
         }
 
-        writeCTRFile(new File(newFilePath.toString()), statsList, PLAYER);
+        writeCTRFile(new File(newFilePath.toString()), statsList, type);
     }
 
     public static void writeCTRFile(File file, ArrayList<String> statsList, int type){
-        String filePath = file.getPath();
         ArrayList<String> finList = new ArrayList<String>();
 
         //Deciding what type of ctr the file should be
@@ -477,8 +475,35 @@ public class CreatureUtils {
             finList.add("Sprite: 0000");
         } else if(type == ENEMY){
             finList.add(0, "[ENEMY]");
+            finList.add(1, "Name: " + statsList.get(0));
+            finList.add(2, "Roll: 1");
+            finList.add(3, "maxHP: " + statsList.get(1));
+            finList.add(4, "numEnemies: 1");
+            finList.add(5, "CR: 0.0");
+            finList.add(6, "AC: " + statsList.get(2));
+            finList.add(7, "Str: " + statsList.get(3));
+            finList.add(8, "Dex: " + statsList.get(4));
+            finList.add(9, "Con: " + statsList.get(5));
+            finList.add(10, "Int: " + statsList.get(6));
+            finList.add(11, "Wis: " + statsList.get(7));
+            finList.add(12, "Cha: " + statsList.get(8));
+
         } else if(type == BOSS){
             finList.add(0, "[BOSS]");
+            finList.add(1, "Name: " + statsList.get(0));
+            finList.add(2, "Roll: 1");
+            finList.add(3, "maxHP: " + statsList.get(1));
+            finList.add(4, "numEnemies: 1");
+            finList.add(5, "CR: 0.0");
+            finList.add(6, "numLegendaryActions: 3");
+            finList.add(7, "generic: true");
+            finList.add(8, "AC: " + statsList.get(2));
+            finList.add(9, "Str: " + statsList.get(3));
+            finList.add(10, "Dex: " + statsList.get(4));
+            finList.add(11, "Con: " + statsList.get(5));
+            finList.add(12, "Int: " + statsList.get(6));
+            finList.add(13, "Wis: " + statsList.get(7));
+            finList.add(14, "Cha: " + statsList.get(8));
         }
 
         //Write the list to the file
@@ -490,5 +515,18 @@ public class CreatureUtils {
         } catch (IOException ioe){
             System.err.println("Something went wrong");
         }
+    }
+
+    //returns true if there are 2+ files in creatures folder
+    public static boolean checkCreaturesFolderNumFiles(){
+        boolean creaturesFolderIsGood = false;
+        File dir = new File(CREATURES_FOLDER.getPath());
+        File[] directoryListing = dir.listFiles();
+
+        if(directoryListing.length >= 2){
+            creaturesFolderIsGood = true;
+        }
+
+        return creaturesFolderIsGood;
     }
 }
