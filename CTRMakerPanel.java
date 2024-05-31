@@ -207,6 +207,7 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
                         CreatureUtils.makeCTRFile(statsList, CreatureUtils.BOSS, errorPanel, errorLabel);
                         errorPanel.setVisible(false);
                     }
+                    clearTextFields();
 
                 } else {
                     errorLabel.setText("Please fill out all fields with correct values.");
@@ -214,8 +215,8 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
                 }
             }
         });
-        buttonPanel.add(jbCreateCreature);
         buttonPanel.add(new BackButton(previousPanel, this));
+        buttonPanel.add(jbCreateCreature);
 
         // Set up errorPanel
         errorLabel.setText("Creature could not be created.");
@@ -238,6 +239,14 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
             playerName.setVisible(false);
         } else if (jrbBoss.isSelected()) {
             playerName.setVisible(false);
+        }
+    }
+
+    public void clearTextFields(){
+        for(Component c : statsPanel.getComponents()){
+            if(c instanceof JTextField){
+                ((JTextField)c).setText("");
+            }
         }
     }
 

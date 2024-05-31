@@ -1,7 +1,7 @@
 [BOSS]
 Name: Red Dragon
 BossName: Red Dragon
-Roll: 9
+Roll: 5
 maxHP: 546
 numEnemies: 1
 CR: 24.0

@@ -1,6 +1,6 @@
 [ENEMY]
 Name: Hobgoblin
-Roll: 13
+Roll: 18
 maxHP: 11
 numEnemies: 1
 CR: 0.0

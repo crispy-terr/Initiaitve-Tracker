@@ -10,10 +10,11 @@ import java.security.spec.ECFieldF2m;
 public class GUIUtils {
 
     private static ArrayList<ImageIcon> graphicsList;
-    private static final File GRAPHICS_DIRECTORY = new File(GUIUtils.class.getResource("/Graphics").getPath());
+    private static final File GRAPHICS_DIRECTORY; 
 
     static {
         graphicsList = new ArrayList<ImageIcon>();
+        GRAPHICS_DIRECTORY = new File("Graphics");
     }
 
     private GUIUtils() {
@@ -127,7 +128,7 @@ public class GUIUtils {
 
     public static void parseGraphics() {
         try {
-            URI uri = GUIUtils.class.getResource("/Graphics").toURI();
+            URI uri = GRAPHICS_DIRECTORY.toURI();
             File dir = new File(uri);
             for (File f : dir.listFiles()) {
                 graphicsList.add(new ImageIcon(f.getPath()));

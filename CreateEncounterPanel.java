@@ -36,13 +36,13 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
         jbCreateEncounter.addActionListener(this);
         jtfSearch.addActionListener(this);
         jtfSearch.setActionCommand("Search");
-        ;
 
         // Add all creatures to the mainList panel as ChooseCreaturePanels
         for (File n : ChooseCreaturePanel.dirList) {
             ChooseCreaturePanel ccp = new ChooseCreaturePanel();
             mainList.add(ccp);
         }
+        ChooseCreaturePanel.resetIndexPointer();
 
         // Make the mainList panel look nice
         mainList.setBorder(new MatteBorder(0, 0, 1, 0, Color.GRAY));

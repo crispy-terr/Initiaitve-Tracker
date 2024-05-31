@@ -23,6 +23,9 @@ public class BackButton extends JButton implements ActionListener {
 
         for(Component c : prevPanel.getComponents()){
             c.setVisible(true);
+            if(prevPanel instanceof StartPanel){
+                ((StartPanel)prevPanel).checkEnoughCreatures();
+            }
         }
     }
     

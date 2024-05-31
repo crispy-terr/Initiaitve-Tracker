@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.Flow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -513,6 +514,17 @@ public class CreatureUtils {
                 writer.write(n);
                 writer.newLine();
             }
+
+            //Success message
+            JFrame frame = new JFrame("File created!");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(300,100);
+            frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+            frame.add(new JLabel(statsList.get(0) + " has been created!"));
+            frame.setLocationRelativeTo(null);
+            frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
+            frame.setVisible(true);
+
         } catch (IOException ioe){
             System.err.println("Something went wrong");
         }

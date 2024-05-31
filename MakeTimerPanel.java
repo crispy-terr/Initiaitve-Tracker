@@ -74,6 +74,7 @@ public class MakeTimerPanel extends JPanel implements ActionListener{
             frame.setLocationRelativeTo(null);
             frame.add(new JLabel("Timer: \"" + nextTimer.getName() + "\" has been created"), BorderLayout.CENTER);
             frame.add(new JLabel("for " + currentCreature.getName() + "!"));
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
          }
       }catch(java.lang.NumberFormatException e){

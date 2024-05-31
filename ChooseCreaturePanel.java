@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
-
 import java.io.File;
 import java.util.*;
 
@@ -23,6 +22,9 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     //True if check box is checked
     private boolean inEncounter = false;
+
+    //True if deleted in a delete panel
+    private boolean deleted = false;
 
     static {
         creatureFiles = new ArrayList<File>();
@@ -80,6 +82,22 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     public static int getNumInEncounter(){
         return numInEncounter;
+    }
+
+    public JCheckBox getCheckBox(){
+        return jcbInEncounter;
+    }
+
+    public boolean isDeleted(){
+        return deleted;
+    }
+
+    public void setDeleted(boolean isDeleted){
+        deleted = isDeleted;
+    }
+
+    public static void resetIndexPointer(){
+        indexPointer = 0;
     }
 
 }
