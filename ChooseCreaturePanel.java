@@ -55,7 +55,7 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
         setBorder(new MatteBorder(0,0,1,0, Color.GRAY));
 
         //Let's hope this will prevent index out of bounds errors :)
-        if(indexPointer > creatureFiles.size()){
+        if(indexPointer == creatureFiles.size()){
             indexPointer = 0;
         }
     }
@@ -98,6 +98,18 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     public static void resetIndexPointer(){
         indexPointer = 0;
+    }
+
+    public static ArrayList<File> getCreatureFiles(){
+        return creatureFiles;
+    }
+
+    public static int getIndexPointer(){
+        return indexPointer;
+    }
+
+    public static void setIndexPointer(int newIndexPointer){
+        indexPointer = newIndexPointer;
     }
 
 }

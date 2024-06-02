@@ -525,6 +525,10 @@ public class CreatureUtils {
             frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
             frame.setVisible(true);
 
+            //Add new file to creatureList in ChooseCreaturePanel
+            //This will make the delete list update when a new file is made
+            ChooseCreaturePanel.getCreatureFiles().add(file);
+
         } catch (IOException ioe){
             System.err.println("Something went wrong");
         }

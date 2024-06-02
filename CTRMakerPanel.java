@@ -33,6 +33,8 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
 
     private JButton jbCreateCreature = new JButton("Create Creature");
 
+    private boolean filesCreated = false;
+
     public CTRMakerPanel() {
         // Set layout of the CTRMakerPanel
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -111,6 +113,7 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
                         CreatureUtils.makeCTRFile(statsList, CreatureUtils.BOSS, errorPanel, errorLabel);
                         errorPanel.setVisible(false);
                     }
+                    filesCreated = true;
 
                 } else {
                     errorLabel.setText("Please fill out all fields with correct values.");
@@ -207,7 +210,6 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
                         CreatureUtils.makeCTRFile(statsList, CreatureUtils.BOSS, errorPanel, errorLabel);
                         errorPanel.setVisible(false);
                     }
-                    clearTextFields();
 
                 } else {
                     errorLabel.setText("Please fill out all fields with correct values.");
@@ -231,6 +233,14 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
         add(errorPanel);
     }
 
+    public boolean isFilesCreated() {
+        return filesCreated;
+    }
+
+    public void setFilesCreated(boolean filesCreated) {
+        this.filesCreated = filesCreated;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (jrbPlayer.isSelected()) {
@@ -239,14 +249,6 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
             playerName.setVisible(false);
         } else if (jrbBoss.isSelected()) {
             playerName.setVisible(false);
-        }
-    }
-
-    public void clearTextFields(){
-        for(Component c : statsPanel.getComponents()){
-            if(c instanceof JTextField){
-                ((JTextField)c).setText("");
-            }
         }
     }
 

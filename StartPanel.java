@@ -65,6 +65,8 @@ public class StartPanel extends JPanel implements ActionListener {
                 System.err.println("Something went wrong.");
                 ee.printStackTrace();
             }
+        } else if (e.getActionCommand().equalsIgnoreCase("Back")){
+            System.out.println("Back");
         }
     }
 

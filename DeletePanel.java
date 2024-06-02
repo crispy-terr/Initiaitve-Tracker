@@ -109,6 +109,8 @@ public class DeletePanel extends JPanel implements ActionListener {
                             ccp.getCheckBox().setSelected(false);
                             ccp.setVisible(false);
                             ccp.setDeleted(true);
+                            ChooseCreaturePanel.getCreatureFiles().remove(ccp.getCreature().getFile());
+                            ChooseCreaturePanel.setIndexPointer(ChooseCreaturePanel.getIndexPointer()-1);
                         } catch (Exception ee) {
                             System.err.println("Something went wrong.");
                         }

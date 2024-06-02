@@ -10,6 +10,7 @@ public class BackButton extends JButton implements ActionListener {
     public BackButton(JPanel prevPanel, JPanel currentPanel){
         setText("Back");
         addActionListener(this);
+        addActionListener(new StartPanel());
 
         this.prevPanel = prevPanel;
         this.currentPanel = currentPanel;
