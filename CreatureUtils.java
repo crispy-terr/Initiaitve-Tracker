@@ -418,16 +418,21 @@ public class CreatureUtils {
         Path newFilePath = Paths.get(CREATURES_FOLDER.getPath(), fileName);
 
         // Create the file
+        boolean readyToWriteFile = true;
+        JButton delete = new JButton("Delete File");
         try{
             Files.createFile(newFilePath);
+            writeCTRFile(new File(newFilePath.toString()), statsList, type);
         } catch (IOException ioe){
+            readyToWriteFile = false;
             JFrame frame = GUIUtils.makeErrorMessage("The file " + fileName + " Already Exists. Delete?", "File Already Exists");
-            JButton delete = new JButton("Delete File");
             delete.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae){
                     try{
                         Files.delete(newFilePath);
                         delete.setEnabled(false);
+                        frame.dispose();
+                        writeCTRFile(new File(newFilePath.toString()), statsList, type);
                     } catch (IOException ioe){
                         ioe.printStackTrace();
                     }
@@ -437,7 +442,13 @@ public class CreatureUtils {
             frame.add(delete);
         }
 
-        writeCTRFile(new File(newFilePath.toString()), statsList, type);
+        // if(!delete.isVisible()){
+        //     readyToWriteFile = false;
+        // }
+
+        // if(readyToWriteFile){
+        //     writeCTRFile(new File(newFilePath.toString()), statsList, type);
+        // }
     }
 
     public static void writeCTRFile(File file, ArrayList<String> statsList, int type){
@@ -525,9 +536,7 @@ public class CreatureUtils {
             frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
             frame.setVisible(true);
 
-            //Add new file to creatureList in ChooseCreaturePanel
-            //This will make the delete list update when a new file is made
-            ChooseCreaturePanel.getCreatureFiles().add(file);
+            CTRMakerBackButton.setCtrMade(true);
 
         } catch (IOException ioe){
             System.err.println("Something went wrong");

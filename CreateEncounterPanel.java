@@ -38,7 +38,7 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
         jtfSearch.setActionCommand("Search");
 
         // Add all creatures to the mainList panel as ChooseCreaturePanels
-        for (File n : ChooseCreaturePanel.dirList) {
+        for (File n : ChooseCreaturePanel.getDirList()) {
             ChooseCreaturePanel ccp = new ChooseCreaturePanel();
             mainList.add(ccp);
         }
@@ -66,7 +66,7 @@ public class CreateEncounterPanel extends JPanel implements ActionListener {
 
         if (e.getActionCommand().equalsIgnoreCase("Create Encounter")) {
             if (ChooseCreaturePanel.getNumInEncounter() > 1) {
-                for (int i = 0; i < ChooseCreaturePanel.dirList.length; i++) {
+                for (int i = 0; i < ChooseCreaturePanel.getDirList().length; i++) {
                     if (mainList.getComponent(i) instanceof ChooseCreaturePanel) {
                         if (((ChooseCreaturePanel) (mainList.getComponent(i))).isInEncounter()) {
 

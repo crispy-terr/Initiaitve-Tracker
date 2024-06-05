@@ -9,7 +9,8 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     // Setting up the directory, making an ArrayList to store it
     private static File dir = new File(CreatureUtils.CREATURES_FOLDER.getPath());
-    static File[] dirList = dir.listFiles();
+
+    private static File[] dirList = dir.listFiles();
     private static ArrayList<File> creatureFiles;
     private static int indexPointer = 0;
     private static int numInEncounter = 0;
@@ -110,6 +111,14 @@ public class ChooseCreaturePanel extends JPanel implements ActionListener {
 
     public static void setIndexPointer(int newIndexPointer){
         indexPointer = newIndexPointer;
+    }
+
+    public static File[] getDirList() {
+        return dirList;
+    }
+
+    public static void setDirList(File[] dirList) {
+        ChooseCreaturePanel.dirList = dirList;
     }
 
 }

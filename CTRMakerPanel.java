@@ -31,7 +31,9 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
     private JPanel errorPanel = new JPanel();
     private JLabel errorLabel = new JLabel();
 
+    //Buttons
     private JButton jbCreateCreature = new JButton("Create Creature");
+    private CTRMakerBackButton bbBackToStart;
 
     private boolean filesCreated = false;
 
@@ -217,7 +219,8 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
                 }
             }
         });
-        buttonPanel.add(new BackButton(previousPanel, this));
+        bbBackToStart = new CTRMakerBackButton(previousPanel, this);
+        buttonPanel.add(bbBackToStart);
         buttonPanel.add(jbCreateCreature);
 
         // Set up errorPanel
@@ -250,6 +253,182 @@ public class CTRMakerPanel extends JPanel implements ActionListener {
         } else if (jrbBoss.isSelected()) {
             playerName.setVisible(false);
         }
+    }
+
+    public JRadioButton getJrbPlayer() {
+        return jrbPlayer;
+    }
+
+    public void setJrbPlayer(JRadioButton jrbPlayer) {
+        this.jrbPlayer = jrbPlayer;
+    }
+
+    public JRadioButton getJrbEnemy() {
+        return jrbEnemy;
+    }
+
+    public void setJrbEnemy(JRadioButton jrbEnemy) {
+        this.jrbEnemy = jrbEnemy;
+    }
+
+    public JRadioButton getJrbBoss() {
+        return jrbBoss;
+    }
+
+    public void setJrbBoss(JRadioButton jrbBoss) {
+        this.jrbBoss = jrbBoss;
+    }
+
+    public ButtonGroup getTypeButtonGroup() {
+        return typeButtonGroup;
+    }
+
+    public void setTypeButtonGroup(ButtonGroup typeButtonGroup) {
+        this.typeButtonGroup = typeButtonGroup;
+    }
+
+    public JPanel getRadioButtonPanel() {
+        return radioButtonPanel;
+    }
+
+    public void setRadioButtonPanel(JPanel radioButtonPanel) {
+        this.radioButtonPanel = radioButtonPanel;
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+
+    public JPanel getButtonPanel() {
+        return buttonPanel;
+    }
+
+    public void setButtonPanel(JPanel buttonPanel) {
+        this.buttonPanel = buttonPanel;
+    }
+
+    public StatsDisplay getCharacterName() {
+        return characterName;
+    }
+
+    public void setCharacterName(StatsDisplay characterName) {
+        this.characterName = characterName;
+    }
+
+    public StatsDisplay getStrength() {
+        return strength;
+    }
+
+    public void setStrength(StatsDisplay strength) {
+        this.strength = strength;
+    }
+
+    public StatsDisplay getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(StatsDisplay dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public StatsDisplay getConstitution() {
+        return constitution;
+    }
+
+    public void setConstitution(StatsDisplay constitution) {
+        this.constitution = constitution;
+    }
+
+    public StatsDisplay getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(StatsDisplay intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public StatsDisplay getWisdom() {
+        return wisdom;
+    }
+
+    public void setWisdom(StatsDisplay wisdom) {
+        this.wisdom = wisdom;
+    }
+
+    public StatsDisplay getCharisma() {
+        return charisma;
+    }
+
+    public void setCharisma(StatsDisplay charisma) {
+        this.charisma = charisma;
+    }
+
+    public StatsDisplay getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(StatsDisplay maxHP) {
+        this.maxHP = maxHP;
+    }
+
+    public StatsDisplay getArmorClass() {
+        return armorClass;
+    }
+
+    public void setArmorClass(StatsDisplay armorClass) {
+        this.armorClass = armorClass;
+    }
+
+    public JPanel getStatsPanel() {
+        return statsPanel;
+    }
+
+    public void setStatsPanel(JPanel statsPanel) {
+        this.statsPanel = statsPanel;
+    }
+
+    public StatsDisplay getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(StatsDisplay playerName) {
+        this.playerName = playerName;
+    }
+
+    public JPanel getErrorPanel() {
+        return errorPanel;
+    }
+
+    public void setErrorPanel(JPanel errorPanel) {
+        this.errorPanel = errorPanel;
+    }
+
+    public JLabel getErrorLabel() {
+        return errorLabel;
+    }
+
+    public void setErrorLabel(JLabel errorLabel) {
+        this.errorLabel = errorLabel;
+    }
+
+    public JButton getJbCreateCreature() {
+        return jbCreateCreature;
+    }
+
+    public void setJbCreateCreature(JButton jbCreateCreature) {
+        this.jbCreateCreature = jbCreateCreature;
+    }
+
+    public CTRMakerBackButton getBbBackToStart() {
+        return bbBackToStart;
+    }
+
+    public void setBbBackToStart(CTRMakerBackButton bbBackToStart) {
+        this.bbBackToStart = bbBackToStart;
     }
 
 }

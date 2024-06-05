@@ -47,6 +47,7 @@ public class Main {
             frame.setResizable(false);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+            
             JLabel error = new JLabel("Something went wrong.");
             error.setForeground(Color.RED);
             frame.add(error);

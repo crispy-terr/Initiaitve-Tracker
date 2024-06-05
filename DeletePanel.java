@@ -28,7 +28,7 @@ public class DeletePanel extends JPanel implements ActionListener {
         jtfSearch.setActionCommand("Search");
 
         // Add all creatures to the mainList panel as ChooseCreaturePanels
-        for (File n : ChooseCreaturePanel.dirList) {
+        for (File n : ChooseCreaturePanel.getDirList()) {
             ChooseCreaturePanel ccp = new ChooseCreaturePanel();
             mainList.add(ccp);
         }
@@ -67,7 +67,7 @@ public class DeletePanel extends JPanel implements ActionListener {
         jtfSearch.setActionCommand("Search");
 
         // Add all creatures to the mainList panel as ChooseCreaturePanels
-        for (File n : ChooseCreaturePanel.dirList) {
+        for (File n : ChooseCreaturePanel.getDirList()) {
             ChooseCreaturePanel ccp = new ChooseCreaturePanel();
             mainList.add(ccp);
         }
