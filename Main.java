@@ -31,7 +31,7 @@ public class Main {
             StartPanel sp = new StartPanel();
 
             JFrame frame = new JFrame("Initiative Tracker");
-            frame.setIconImage(new ImageIcon(CreatureUtils.class.getResource("/Graphics/Logo.png")).getImage());
+            frame.setIconImage(new ImageIcon(GUIUtils.getGraphicsDirectory() + "/Logo.png").getImage());
             frame.setSize(500, 500);
             frame.setLocationRelativeTo(null);
             frame.setResizable(false);

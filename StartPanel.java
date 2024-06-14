@@ -21,7 +21,7 @@ public class StartPanel extends JPanel implements ActionListener {
         titleLabel.setFont(titleFont);
 
         titlePanel.add(titleLabel);
-        
+
         buttonPanel.add(jbStart);
         jbStart.addActionListener(this);
         buttonPanel.add(jbCreateFiles);
@@ -32,7 +32,8 @@ public class StartPanel extends JPanel implements ActionListener {
         // Set up CTRMadePanel and add it
         CTRMadePanel.add(CTRMadeLabel);
         CTRMadeLabel.setForeground(Color.RED);
-        CTRMadePanel.setVisible(false);
+        CTRMadeLabel.setVisible(false);
+        CTRMadePanel.setName("CTRMadePanel");
 
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -71,9 +72,10 @@ public class StartPanel extends JPanel implements ActionListener {
                 ee.printStackTrace();
             }
         } else if (e.getActionCommand().equalsIgnoreCase("CTRBack")) {
+            System.out.println(CTRMakerBackButton.isCtrMade());
             if (CTRMakerBackButton.isCtrMade()) {
-                CTRMadePanel.setVisible(true);
-                CTRMadePanel.revalidate();
+                System.out.println("x");
+                CTRMadeLabel.setVisible(true);
                 jbStart.setEnabled(false);
             }
         }

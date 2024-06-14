@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+
 import javax.swing.JPanel;
 
 public class CTRMakerBackButton extends BackButton {
@@ -14,5 +16,9 @@ public class CTRMakerBackButton extends BackButton {
     
     public static void setCtrMade(boolean ctrMade) {
         CTRMakerBackButton.ctrMade = ctrMade;
+    }
+
+    public void actionPerformed(ActionEvent ae){
+        super.actionPerformed(ae);
     }
 }

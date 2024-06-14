@@ -140,16 +140,4 @@ public class DeletePanel extends JPanel implements ActionListener {
             }
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
-
-        DeletePanel dp = new DeletePanel(null);
-        frame.add(dp);
-
-        frame.setVisible(true);
-    }
-
 }
